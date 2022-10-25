@@ -32,8 +32,7 @@ class OTMClient {
             case .getStudentLocation: return Endpoints.base + "/StudentLocation"
             case .createStudentLocation: return ""
             case .editStudentLocation: return ""
-            case .login: return Endpoints.base + "/session"
-            case .logout: return ""
+            case .login, .logout: return Endpoints.base + "/session"
             case .getPublicUserData: return ""
             }
         }
@@ -43,6 +42,8 @@ class OTMClient {
         }
     }
     
+    //MARK: Auth functions
+    
     class func login(udacity: UdacityUserPass, completion: @escaping (Bool, Error?) -> Void) {
         let body = LoginRequest(udacity: udacity)
         taskForPOSTRequest(url: Endpoints.login.url, responseType: AuthSessionResponse.self, body: body) { response, error in
@@ -51,12 +52,39 @@ class OTMClient {
                 Auth.userId = response.account?.key ?? ""
                 //TODO: Are there other values that need to be set after login? e.g.user
                 //TODO: Should user be an int or String?
+                //TODO: sessionId will be passed back in the header of the DELETE in order to kill session
                 completion(true, nil)
             } else {
                 completion(false, nil)
             }
         }
     }
+    
+    class func logout(completion: @escaping () -> Void) {
+        var request = URLRequest(url: Endpoints.logout.url)
+        request.httpMethod = "DELETE"
+        let body = LogoutRequest(sessionId: Auth.sessionId)
+        request.httpBody = try! JSONEncoder().encode(body)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            //TODO: What should we do if data comes back nil?
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion()
+                }
+                return
+            }
+            let range = 5..<data.count
+            let newData = data.subdata(in: range) /* subset response data! */
+            print(String(data: newData, encoding: .utf8)!)
+            Auth.sessionId = ""
+            completion()
+        }
+        task.resume()
+    }
+    
+    //MARK: Flexible functions
     
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -107,7 +135,8 @@ class OTMClient {
             print(String(data: newData, encoding: .utf8)!)
             let decoder = JSONDecoder()
             do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                let responseObject = try decoder.decode(ResponseType.self, from: newData)
+                /* note that 'data' was replaced with 'newData' in the line above to send the proper truncated data to the decoder*/
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }

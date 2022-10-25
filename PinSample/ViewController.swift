@@ -29,6 +29,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         
         // The "locations" array is an array of dictionary objects that are similar to the JSON
         // data that you can download from parse.
@@ -71,6 +72,18 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    // Setup navigation bar
+    private func setupNavigationBar() {
+        let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
+        let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))
+
+        navigationItem.rightBarButtonItems = [addButton, refreshButton]
+        navigationItem.leftBarButtonItem = logoutButton
+    }
+                                           
+
+                                           
     // MARK: - MKMapViewDelegate
 
     // Here we create a view with a "right callout accessory view". You might choose to look into other

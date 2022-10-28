@@ -31,9 +31,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         setupNavigationBar()
         
+        _ = OTMClient.getStudentLocation() { studentLocations, error in
+            StudentsData.sharedInstance().students = studentLocations
+//            self.tableView.reloadData()
+            //TODO: above, how do I reload, or load the data for this mapview??
+        }
+        
         // The "locations" array is an array of dictionary objects that are similar to the JSON
         // data that you can download from parse.
-        let locations = hardCodedLocationData()
+//        let locations = hardCodedLocationData()
+        let locations = StudentsData.sharedInstance().students
         
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
@@ -47,15 +54,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+            let lat = CLLocationDegrees(dictionary.latitude ?? 0)
+            let long = CLLocationDegrees(dictionary.longitude ?? 0)
             
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
+            let first = dictionary.firstName ?? ""
+            let last = dictionary.lastName ?? ""
+            let mediaURL = dictionary.mediaURL ?? ""
             
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()

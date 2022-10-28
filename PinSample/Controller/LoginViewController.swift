@@ -32,11 +32,23 @@ class LoginViewController: UIViewController {
     func handleLoginResponse(success: Bool, error: Error?) {
 //        setLoggingIn(false)
         if success {
+            OTMClient.getUserData(completion: handleUserDataResponse(success:error:))
             performSegue(withIdentifier: "completeLogin", sender: nil)
         } else {
 //            showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
+    
+    func handleUserDataResponse(success: Bool, error: Error?) {
+//        setLoggingIn(false)
+        if success {
+
+        } else {
+//            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+
     
 
     /*

@@ -15,6 +15,8 @@ class OTMClient {
         
         static var userId = "" //also known as "key" returned in loginresponse
         static var sessionId = ""
+        static var firstName = ""
+        static var lastName = ""
     }
     
     enum Endpoints {
@@ -25,15 +27,15 @@ class OTMClient {
         case editStudentLocation
         case login
         case logout
-        case getPublicUserData
+        case getUserData
         
         var stringValue: String {
             switch self {
-            case .getStudentLocation: return Endpoints.base + "/StudentLocation"
+            case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt?limit=100"
             case .createStudentLocation: return ""
             case .editStudentLocation: return ""
             case .login, .logout: return Endpoints.base + "/session"
-            case .getPublicUserData: return ""
+            case .getUserData: return Endpoints.base + "/users/" + "\(Auth.userId)"
             }
         }
         
@@ -84,6 +86,32 @@ class OTMClient {
         task.resume()
     }
     
+    class func getUserData(completion: @escaping (Bool, Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getUserData.url, responseType: User.self) { response, error in
+            if let response = response {
+                OTMClient.Auth.firstName = response.firstName
+                OTMClient.Auth.lastName = response.lastName
+                print("fistname:\(Auth.firstName)" + "lastname:\(Auth.lastName)" )
+                completion(true, nil)
+            } else {
+                completion(false, error)
+            }
+        }
+    }
+    
+    //MARK: Location Functions
+    
+    //this is to retrieve 100 most recent student locations
+    class func getStudentLocation(completion: @escaping ([StudentLocations], Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getStudentLocation.url, responseType: StudentResponse.self) { response, error in
+            if let response = response {
+                completion(response.results, nil)
+            } else {
+                completion([], error)
+            }
+        }
+    }
+    
     //MARK: Flexible functions
     
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
@@ -94,9 +122,17 @@ class OTMClient {
                 }
                 return
             }
+            
+            var newData = data
+            if (url == Endpoints.getUserData.url) {
+                let range = 5..<data.count
+                newData = data.subdata(in: range) /* subset response data! */
+            }
+            print(String(data: newData, encoding: .utf8)!)
+            
             let decoder = JSONDecoder()
             do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                let responseObject = try decoder.decode(ResponseType.self, from: newData)
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }
@@ -130,9 +166,14 @@ class OTMClient {
                 }
                 return
             }
-            let range = 5..<data.count
-            let newData = data.subdata(in: range) /* subset response data! */
-            print(String(data: newData, encoding: .utf8)!)
+            
+            var newData = data
+            if (url == Endpoints.login.url) {
+                let range = 5..<data.count
+                newData = data.subdata(in: range) /* subset response data! */
+                print(String(data: newData, encoding: .utf8)!)
+            }
+
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: newData)

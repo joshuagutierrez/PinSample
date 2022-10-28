@@ -12,7 +12,7 @@ class StudentTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupNavigationBar()
         let locations = StudentsData.sharedInstance().students
 
         // Uncomment the following line to preserve selection between presentations
@@ -21,13 +21,24 @@ class StudentTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    // Setup navigation bar
+    private func setupNavigationBar() {
+        navigationItem.title = "On The Map"
+        let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
+        let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))
+
+        navigationItem.rightBarButtonItems = [addButton, refreshButton]
+        navigationItem.leftBarButtonItem = logoutButton
+    }
 
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -42,7 +53,8 @@ class StudentTableViewController: UITableViewController {
 
      let location = locations[indexPath.row]
      cell.studentName?.text = (location.firstName ?? "") + (location.lastName ?? "")
-//     cell.pinImageView?.image =
+        cell.url?.text = location.mediaURL ?? ""
+     cell.pinImageView?.image = UIImage(named: "icon_pin")
         //TODO: get the correct image to load in table view
 
         return cell

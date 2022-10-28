@@ -81,6 +81,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     // Setup navigation bar
     private func setupNavigationBar() {
+        navigationItem.title = "On The Map"
         let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))

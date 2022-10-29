@@ -75,7 +75,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
         
         // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
+        DispatchQueue.main.async {
+            self.mapView.addAnnotations(annotations)
+        }
         
     }
     

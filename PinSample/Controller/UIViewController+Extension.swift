@@ -12,6 +12,12 @@ import UIKit
 extension UIViewController {
     @objc func didTapAddButton() {
         //TODO: implement add button tap
+        let rootVC = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
+        rootVC.title = "Add Location"
+        let navVC = UINavigationController(rootViewController: rootVC)
+//        vc.modalPresentationStyle = .fullScreen
+        navigationController?.present(navVC, animated: true, completion: nil)
+        
     }
     
     @objc func didTapRefreshButton() {
@@ -26,4 +32,13 @@ extension UIViewController {
             }
         }
     }
+    
+    @objc func didTapCancelButton() {
+        //TODO: implement cancel button tap
+        
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    
 }

@@ -5,7 +5,7 @@
 //  Created by Josh Gutierrez on 10/22/22.
 //  Copyright © 2022 Udacity. All rights reserved.
 //
-// ***Some Code Borrowed from Udacity "TheMovieManager" App
+// ***Some Code Borrowed from Udacity "TheMovieManager" App and uses "PinSample" app as a starting point
 
 import Foundation
 

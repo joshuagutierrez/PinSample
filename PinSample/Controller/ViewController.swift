@@ -34,9 +34,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
         _ = OTMClient.getStudentLocation() { studentLocations, error in
             StudentsData.sharedInstance().students = studentLocations
 //            self.tableView.reloadData()
-            //TODO: above, how do I reload, or load the data for this mapview??
+            //TODO: this fixed the issue when I wouldn't see pins in the first load
+            self.refresh()
         }
-        refresh()
+        
         
         
     }

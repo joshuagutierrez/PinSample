@@ -32,7 +32,7 @@ class OTMClient {
         
         var stringValue: String {
             switch self {
-            case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt?limit=100"
+            case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt&limit=100" //a code reviewer said the url should be Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100", but I don't understand, that doesn't seem to work
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             case .putStudentLocation: return Endpoints.base + "/StudentLocation/\(Auth.objectId)"
             case .login, .logout: return Endpoints.base + "/session"
@@ -51,14 +51,14 @@ class OTMClient {
         let body = LoginRequest(udacity: udacity)
         taskForPOSTRequest(url: Endpoints.login.url, responseType: AuthSessionResponse.self, body: body) { response, error in
             if let response = response {
-                Auth.sessionId = response.session?.id ?? ""
-                Auth.userId = response.account?.key ?? ""
+                Auth.sessionId = response.session.id
+                Auth.userId = response.account.key 
                 //TODO: Are there other values that need to be set after login? e.g.user
                 //TODO: Should user be an int or String?
                 //TODO: sessionId will be passed back in the header of the DELETE in order to kill session
                 completion(true, nil)
             } else {
-                completion(false, nil)
+                completion(false, error)
             }
         }
     }
@@ -165,7 +165,7 @@ class OTMClient {
                 }
             } catch {
                 do {
-                    let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: newData) as Error
                     DispatchQueue.main.async {
                         completion(nil, errorResponse)
                     }
@@ -199,7 +199,8 @@ class OTMClient {
                 let range = 5..<data.count
                 newData = data.subdata(in: range) /* subset response data! */
             }
-            print(String(data: newData, encoding: .utf8)!)
+            print("newData" + String(data: newData, encoding: .utf8)!)
+            print("data" + String(data: data, encoding: .utf8)!)
 
 
             let decoder = JSONDecoder()
@@ -211,7 +212,7 @@ class OTMClient {
                 }
             } catch {
                 do {
-                    let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: newData) as Error
                     DispatchQueue.main.async {
                         completion(nil, errorResponse)
                     }

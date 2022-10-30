@@ -14,8 +14,11 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var loginButton: UIButton!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBAction func loginPressed(_ sender: Any) {
-//        setLoggingIn(true)
+        setLoggingIn(true)
         var udacity = UdacityUserPass(username: emailTextField.text ?? "", password: passwordTextField.text ?? "")
         OTMClient.login(udacity: udacity, completion: handleLoginResponse(success:error:))
                     
@@ -30,35 +33,38 @@ class LoginViewController: UIViewController {
     
 //      This func was previously named handleSessionResponse
     func handleLoginResponse(success: Bool, error: Error?) {
-//        setLoggingIn(false)
+        setLoggingIn(false)
         if success {
             OTMClient.getUserData(completion: handleUserDataResponse(success:error:))
-            performSegue(withIdentifier: "completeLogin", sender: nil)
         } else {
-//            showLoginFailure(message: error?.localizedDescription ?? "")
+            showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
     
     func handleUserDataResponse(success: Bool, error: Error?) {
-//        setLoggingIn(false)
+        setLoggingIn(false)
         if success {
-
+            performSegue(withIdentifier: "completeLogin", sender: nil)
         } else {
-//            showLoginFailure(message: error?.localizedDescription ?? "")
+            showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
     
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setLoggingIn(_ loggingIn: Bool) {
+        if loggingIn {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+        emailTextField.isEnabled = !loggingIn
+        passwordTextField.isEnabled = !loggingIn
+        loginButton.isEnabled = !loggingIn
     }
-    */
+    
+    func showLoginFailure(message: String) {
+        let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(alertVC, sender: nil)
+    }
 
 }

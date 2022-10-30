@@ -318,6 +318,10 @@
                                     <action selector="loginPressed:" destination="Mhj-If-IOh" eventType="touchUpInside" id="3VA-wn-QSN"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Tyi-wU-1BJ">
+                                <rect key="frame" x="186" y="595" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <constraints>
@@ -328,7 +332,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Tyi-wU-1BJ" id="PA7-O3-l74"/>
                         <outlet property="emailTextField" destination="4Mt-GM-bLd" id="vLf-0d-vIS"/>
+                        <outlet property="loginButton" destination="bni-hJ-Ttf" id="GSZ-sp-gfl"/>
                         <outlet property="passwordTextField" destination="J2L-d2-lAr" id="BtZ-JU-wCF"/>
                         <segue destination="G7J-LB-1CD" kind="presentation" identifier="completeLogin" id="Wy5-Va-aOe"/>
                     </connections>

@@ -9,8 +9,8 @@
 import Foundation
 
 struct AuthSessionResponse: Codable {
-    let account: AccountResponse?
-    let session: SessionResponse?
+    let account: AccountResponse
+    let session: SessionResponse
 }
 
 struct AccountResponse: Codable {
@@ -19,6 +19,6 @@ struct AccountResponse: Codable {
 }
 
 struct SessionResponse: Codable {
-    let id: String?
-    let expiration: String?
+    let id: String
+    let expiration: String
 }

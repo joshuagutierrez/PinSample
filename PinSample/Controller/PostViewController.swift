@@ -36,6 +36,7 @@ class PostViewController: UIViewController {
         if segue.identifier == "completeLocationSegue" {
             let detailVC = segue.destination as! LocationDetailViewController
             detailVC.placemark = address
+            detailVC.url = url.text
         }
     }
 

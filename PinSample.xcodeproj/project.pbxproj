@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033D6F5F290DC6BA00C78FB0 /* PostStudentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F5E290DC6BA00C78FB0 /* PostStudentResponse.swift */; };
+		033D6F61290DC74F00C78FB0 /* PostStudentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F60290DC74F00C78FB0 /* PostStudentRequest.swift */; };
+		033D6F63290E06D600C78FB0 /* PutStudentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F62290E06D600C78FB0 /* PutStudentRequest.swift */; };
+		033D6F65290E06FF00C78FB0 /* PutStudentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F64290E06FF00C78FB0 /* PutStudentResponse.swift */; };
 		03AC43EF290C9FA500DD9BE8 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC43EE290C9FA500DD9BE8 /* LocationDetailViewController.swift */; };
 		03B60F1D29033E8B004F43B4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B60F1C29033E8B004F43B4 /* LoginViewController.swift */; };
 		03B60F2229033F1D004F43B4 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B60F2129033F1D004F43B4 /* LoginRequest.swift */; };
@@ -40,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033D6F5E290DC6BA00C78FB0 /* PostStudentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStudentResponse.swift; sourceTree = "<group>"; };
+		033D6F60290DC74F00C78FB0 /* PostStudentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStudentRequest.swift; sourceTree = "<group>"; };
+		033D6F62290E06D600C78FB0 /* PutStudentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentRequest.swift; sourceTree = "<group>"; };
+		033D6F64290E06FF00C78FB0 /* PutStudentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentResponse.swift; sourceTree = "<group>"; };
 		03AC43EE290C9FA500DD9BE8 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		03B60F1C29033E8B004F43B4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		03B60F2129033F1D004F43B4 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
@@ -137,6 +145,8 @@
 			children = (
 				03B60F2129033F1D004F43B4 /* LoginRequest.swift */,
 				03F35CBE29076E0000884CF8 /* LogoutRequest.swift */,
+				033D6F60290DC74F00C78FB0 /* PostStudentRequest.swift */,
+				033D6F62290E06D600C78FB0 /* PutStudentRequest.swift */,
 			);
 			path = "OTM Requests";
 			sourceTree = "<group>";
@@ -148,6 +158,8 @@
 				03B60F2C290477F4004F43B4 /* OTMReponse.swift */,
 				03F35CC22908BBC600884CF8 /* UserDataResponse.swift */,
 				03F35CC8290B41D900884CF8 /* StudentResponse.swift */,
+				033D6F5E290DC6BA00C78FB0 /* PostStudentResponse.swift */,
+				033D6F64290E06FF00C78FB0 /* PutStudentResponse.swift */,
 			);
 			path = "OTM Responses";
 			sourceTree = "<group>";
@@ -315,16 +327,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				03F35CBD29076C7300884CF8 /* UIViewController+Extension.swift in Sources */,
+				033D6F61290DC74F00C78FB0 /* PostStudentRequest.swift in Sources */,
 				03F35CBF29076E0000884CF8 /* LogoutRequest.swift in Sources */,
 				03B60F1D29033E8B004F43B4 /* LoginViewController.swift in Sources */,
 				03B60F2B29046B2D004F43B4 /* OTMClient.swift in Sources */,
 				03B60F2729034485004F43B4 /* AuthSessionResponse.swift in Sources */,
 				4DFABCEA1AC0CBAC00D21C43 /* ViewController.swift in Sources */,
+				033D6F5F290DC6BA00C78FB0 /* PostStudentResponse.swift in Sources */,
 				03F35CC9290B41D900884CF8 /* StudentResponse.swift in Sources */,
 				03F35CC52908C46E00884CF8 /* StudentsData.swift in Sources */,
 				03AC43EF290C9FA500DD9BE8 /* LocationDetailViewController.swift in Sources */,
 				4DFABCE81AC0CBAC00D21C43 /* AppDelegate.swift in Sources */,
+				033D6F63290E06D600C78FB0 /* PutStudentRequest.swift in Sources */,
 				03F35CCF290C67F400884CF8 /* PostViewController.swift in Sources */,
+				033D6F65290E06FF00C78FB0 /* PutStudentResponse.swift in Sources */,
 				03F35CC32908BBC600884CF8 /* UserDataResponse.swift in Sources */,
 				03B60F2D290477F4004F43B4 /* OTMReponse.swift in Sources */,
 				03F35CCD290B569900884CF8 /* StudentTableViewCell.swift in Sources */,

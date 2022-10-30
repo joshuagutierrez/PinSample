@@ -179,21 +179,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mxp-nr-RBh">
-                                <rect key="frame" x="147" y="292" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mxp-nr-RBh">
+                                <rect key="frame" x="95" y="292" width="200" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="FK5-8n-xqs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qvu-AY-Fbv">
-                                <rect key="frame" x="147" y="385" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qvu-AY-Fbv">
+                                <rect key="frame" x="95" y="385" width="200" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="lDD-nX-xtu"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8R5-cN-8rg">
-                                <rect key="frame" x="158" y="495" width="75" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8R5-cN-8rg">
+                                <rect key="frame" x="95" y="495" width="200" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="35X-eu-bzu"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
                                 <connections>
@@ -202,6 +208,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8R5-cN-8rg" firstAttribute="centerX" secondItem="Qvu-AY-Fbv" secondAttribute="centerX" id="0l8-OC-8It"/>
+                            <constraint firstItem="8R5-cN-8rg" firstAttribute="top" secondItem="Qvu-AY-Fbv" secondAttribute="bottom" constant="76" id="9bD-C0-tax"/>
+                            <constraint firstItem="dal-4p-Cgv" firstAttribute="top" secondItem="8R5-cN-8rg" secondAttribute="bottom" constant="280" id="Bz0-Qj-GVx"/>
+                            <constraint firstItem="8R5-cN-8rg" firstAttribute="centerX" secondItem="QF4-vX-WYQ" secondAttribute="centerX" id="XAC-0o-WHG"/>
+                            <constraint firstItem="Qvu-AY-Fbv" firstAttribute="top" secondItem="mxp-nr-RBh" secondAttribute="bottom" constant="59" id="YVr-sK-uht"/>
+                            <constraint firstItem="8R5-cN-8rg" firstAttribute="centerX" secondItem="mxp-nr-RBh" secondAttribute="centerX" id="ka5-Fg-Caf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MC9-Ba-lrF"/>
                     <connections>

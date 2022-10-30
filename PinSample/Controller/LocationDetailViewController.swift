@@ -13,12 +13,41 @@ import MapKit
 class LocationDetailViewController: UIViewController, MKMapViewDelegate {
     
     var placemark: CLPlacemark?
+    var url: String?
+    var student: PostStudentRequest?
 
     @IBOutlet weak var mapView: MKMapView!
     
     @IBAction func finishPressed(_ sender: Any) {
-        //TODO: when finish is tapped, we should post the student location
+        //when finish is tapped, we should post the student location
+ 
+        
+        if OTMClient.Auth.objectId == "" {
+            OTMClient.postStudentLocation(student: student!, completion: handlePostStudentResponse(success:error:))
+        } else {
+            //if we already have an existing objectId, we should not call a fresh post. we should call a put to update the existing object
+            OTMClient.putStudentLocation(student: student!, completion: handlePostStudentResponse(success:error:))
+        }
+        
+        
+
     }
+    
+    //      This func was previously named handleSessionResponse
+        func handlePostStudentResponse(success: Bool, error: Error?) {
+    //        setLoggingIn(false)
+            if success {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+//                OTMClient.getUserData(completion: handleUserDataResponse(success:error:))
+//                performSegue(withIdentifier: "completeLogin", sender: nil)
+            } else {
+    //            showLoginFailure(message: error?.localizedDescription ?? "")
+            }
+        }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Add Location" //this is what causes the back button to go from add location to back. its overriding the back button. may not be desired
@@ -47,6 +76,8 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
         var annotations = [MKPointAnnotation]()
         // Finally we place the annotation in an array of annotations.
         annotations.append(annotation)
+        
+        student = PostStudentRequest(uniqueKey: OTMClient.Auth.userId, firstName: OTMClient.Auth.firstName, lastName: OTMClient.Auth.lastName, mapString: annotation.title, mediaURL: url, latitude: lat, longitude: long)
     
     
         // When the array is complete, we add the annotations to the map.

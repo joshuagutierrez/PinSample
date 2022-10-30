@@ -17,14 +17,15 @@ class OTMClient {
         static var sessionId = ""
         static var firstName = ""
         static var lastName = ""
+        static var objectId = ""
     }
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         
         case getStudentLocation
-        case createStudentLocation
-        case editStudentLocation
+        case postStudentLocation
+        case putStudentLocation
         case login
         case logout
         case getUserData
@@ -32,8 +33,8 @@ class OTMClient {
         var stringValue: String {
             switch self {
             case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt?limit=100"
-            case .createStudentLocation: return ""
-            case .editStudentLocation: return ""
+            case .postStudentLocation: return Endpoints.base + "/StudentLocation"
+            case .putStudentLocation: return Endpoints.base + "/StudentLocation/\(Auth.objectId)"
             case .login, .logout: return Endpoints.base + "/session"
             case .getUserData: return Endpoints.base + "/users/" + "\(Auth.userId)"
             }
@@ -112,6 +113,32 @@ class OTMClient {
         }
     }
     
+    class func postStudentLocation(student: PostStudentRequest, completion: @escaping (Bool, Error?) -> Void) {
+        let body = student
+        taskForPOSTRequest(url: Endpoints.postStudentLocation.url, responseType: PostStudentResponse.self, body: body) { response, error in
+            if let response = response {
+                Auth.objectId = response.objectId ?? ""
+                completion(true, nil)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
+    class func putStudentLocation(student: PostStudentRequest, completion: @escaping (Bool, Error?) -> Void) {
+        let body = student
+        taskForPUTRequest(url: Endpoints.putStudentLocation.url, responseType: PutStudentResponse.self, body: body) { response, error in
+            if let response = response {
+                //TODO: Shouldn't need to set the objectId here, since it was set in initial POST. it should stay preserved
+                completion(true, nil)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
+    
+    
     //MARK: Flexible functions
     
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
@@ -171,8 +198,53 @@ class OTMClient {
             if (url == Endpoints.login.url) {
                 let range = 5..<data.count
                 newData = data.subdata(in: range) /* subset response data! */
-                print(String(data: newData, encoding: .utf8)!)
             }
+            print(String(data: newData, encoding: .utf8)!)
+
+
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(ResponseType.self, from: newData)
+                /* note that 'data' was replaced with 'newData' in the line above to send the proper truncated data to the decoder*/
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                do {
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    class func taskForPUTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, completion: @escaping (ResponseType?, Error?) -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = try! JSONEncoder().encode(body)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            
+            var newData = data
+            if (url == Endpoints.login.url) {
+                let range = 5..<data.count
+                newData = data.subdata(in: range) /* subset response data! */
+            }
+            print(String(data: newData, encoding: .utf8)!)
+
 
             let decoder = JSONDecoder()
             do {

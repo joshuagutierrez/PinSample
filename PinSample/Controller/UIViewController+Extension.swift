@@ -22,6 +22,9 @@ extension UIViewController {
     
     @objc func didTapRefreshButton() {
         //TODO: implement refresh button tap
+//        OTMClient.getStudentLocation(completion: handleRefreshStudentsLocation(location:error:))
+
+
     }
     
     @objc func didTapLogoutButton() {

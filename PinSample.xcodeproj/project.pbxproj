@@ -11,6 +11,7 @@
 		033D6F61290DC74F00C78FB0 /* PostStudentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F60290DC74F00C78FB0 /* PostStudentRequest.swift */; };
 		033D6F63290E06D600C78FB0 /* PutStudentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F62290E06D600C78FB0 /* PutStudentRequest.swift */; };
 		033D6F65290E06FF00C78FB0 /* PutStudentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F64290E06FF00C78FB0 /* PutStudentResponse.swift */; };
+		033D6F67290E148A00C78FB0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D6F66290E148A00C78FB0 /* TabBarController.swift */; };
 		03AC43EF290C9FA500DD9BE8 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC43EE290C9FA500DD9BE8 /* LocationDetailViewController.swift */; };
 		03B60F1D29033E8B004F43B4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B60F1C29033E8B004F43B4 /* LoginViewController.swift */; };
 		03B60F2229033F1D004F43B4 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B60F2129033F1D004F43B4 /* LoginRequest.swift */; };
@@ -48,6 +49,7 @@
 		033D6F60290DC74F00C78FB0 /* PostStudentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStudentRequest.swift; sourceTree = "<group>"; };
 		033D6F62290E06D600C78FB0 /* PutStudentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentRequest.swift; sourceTree = "<group>"; };
 		033D6F64290E06FF00C78FB0 /* PutStudentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentResponse.swift; sourceTree = "<group>"; };
+		033D6F66290E148A00C78FB0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		03AC43EE290C9FA500DD9BE8 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		03B60F1C29033E8B004F43B4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		03B60F2129033F1D004F43B4 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				4DFABCE91AC0CBAC00D21C43 /* ViewController.swift */,
 				03F35CCE290C67F400884CF8 /* PostViewController.swift */,
 				03AC43EE290C9FA500DD9BE8 /* LocationDetailViewController.swift */,
+				033D6F66290E148A00C78FB0 /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				03F35CC32908BBC600884CF8 /* UserDataResponse.swift in Sources */,
 				03B60F2D290477F4004F43B4 /* OTMReponse.swift in Sources */,
 				03F35CCD290B569900884CF8 /* StudentTableViewCell.swift in Sources */,
+				033D6F67290E148A00C78FB0 /* TabBarController.swift in Sources */,
 				03F35CCB290B55B200884CF8 /* StudentTableViewController.swift in Sources */,
 				03B60F2229033F1D004F43B4 /* LoginRequest.swift in Sources */,
 			);

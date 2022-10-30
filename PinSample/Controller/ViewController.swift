@@ -36,10 +36,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
 //            self.tableView.reloadData()
             //TODO: above, how do I reload, or load the data for this mapview??
         }
+        refresh()
         
-        // The "locations" array is an array of dictionary objects that are similar to the JSON
-        // data that you can download from parse.
-//        let locations = hardCodedLocationData()
+        
+    }
+    
+    public func refresh() {
+            
+        self.mapView.removeAnnotations(mapView.annotations)
+        
         let locations = StudentsData.sharedInstance().students
         
         // We will create an MKPointAnnotation for each dictionary in "locations". The
@@ -78,14 +83,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
         DispatchQueue.main.async {
             self.mapView.addAnnotations(annotations)
         }
-        
     }
+
     
-    // Setup navigation bar
+//     Setup navigation bar
     private func setupNavigationBar() {
         navigationItem.title = "On The Map"
         let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(TabBarController.didTapRefreshButton))
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))
 
         navigationItem.rightBarButtonItems = [addButton, refreshButton]

@@ -10,6 +10,10 @@ import UIKit
 
 class StudentTableViewController: UITableViewController {
 
+    public func refresh() {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -22,11 +26,11 @@ class StudentTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    // Setup navigation bar
+//    // Setup navigation bar
     private func setupNavigationBar() {
         navigationItem.title = "On The Map"
         let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(TabBarController.didTapRefreshButton))
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))
 
         navigationItem.rightBarButtonItems = [addButton, refreshButton]

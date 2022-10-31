@@ -129,7 +129,7 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
     func showPostStudentFailure(message: String) {
         let alertVC = UIAlertController(title: "Add Student Location Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        show(alertVC, sender: nil)
+        self.present(alertVC, animated: true)
     }
 
 }

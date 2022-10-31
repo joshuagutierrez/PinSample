@@ -160,7 +160,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     func showStudentLocationDownloadFailure(message: String) {
         let alertVC = UIAlertController(title: "Student Location Download Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        show(alertVC, sender: nil)
+        self.present(alertVC, animated:true)
     }
 
     // MARK: - Sample Data

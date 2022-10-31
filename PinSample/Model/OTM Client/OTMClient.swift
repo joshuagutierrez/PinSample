@@ -33,7 +33,7 @@ class OTMClient {
         var stringValue: String {
             switch self {
 //            case .getStudentLocation: return Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100"
-            case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt&limit=100" //a code reviewer said the url should be Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100", but I don't understand, that doesn't seem to work
+            case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt&limit=100" //a code reviewer said the url should be Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100", whenever I try to test for a failure alert message
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             case .putStudentLocation: return Endpoints.base + "/StudentLocation/\(Auth.objectId)"
             case .login, .logout: return Endpoints.base + "/session"

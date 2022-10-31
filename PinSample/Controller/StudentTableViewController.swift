@@ -89,7 +89,9 @@ class StudentTableViewController: UITableViewController {
         
         let app = UIApplication.shared
         if let toOpen = location.mediaURL {
-            app.openURL(URL(string: toOpen)!)
+            if URL(string: toOpen) != nil {
+                app.openURL(URL(string: toOpen)!)
+            }
         }
     }
     

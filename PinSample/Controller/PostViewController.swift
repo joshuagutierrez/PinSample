@@ -68,7 +68,7 @@ class PostViewController: UIViewController {
     func showGeocodeFailure(message: String) {
         let alertVC = UIAlertController(title: "Geocode Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        show(alertVC, sender: nil)
+        self.present(alertVC, animated:true)
     }
     
     func setForwardGeocoding(_ forwardGeocoding: Bool) {

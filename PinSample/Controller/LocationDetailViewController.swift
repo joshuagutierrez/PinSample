@@ -40,10 +40,8 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }
-//                OTMClient.getUserData(completion: handleUserDataResponse(success:error:))
-//                performSegue(withIdentifier: "completeLogin", sender: nil)
             } else {
-    //            showLoginFailure(message: error?.localizedDescription ?? "")
+                showPostStudentFailure(message: error?.localizedDescription ?? "")
             }
         }
     
@@ -66,6 +64,7 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
         let locality = placemark?.locality ?? ""
         let adminsistrativeArea = placemark?.administrativeArea ?? ""
         let country = placemark?.country ?? ""
+//        let placemarkRegion = placemark?.region //I need this to zoom into the region
         
         // Here we create the annotation and set its coordiate, title, and subtitle properties
         let annotation = MKPointAnnotation()
@@ -78,7 +77,11 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
         annotations.append(annotation)
         
         student = PostStudentRequest(uniqueKey: OTMClient.Auth.userId, firstName: OTMClient.Auth.firstName, lastName: OTMClient.Auth.lastName, mapString: annotation.title, mediaURL: url, latitude: lat, longitude: long)
-    
+        
+        //MARK: zoom in to selected region
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+        self.mapView.setRegion(region, animated: true)
     
         // When the array is complete, we add the annotations to the map.
         DispatchQueue.main.async {
@@ -121,6 +124,12 @@ class LocationDetailViewController: UIViewController, MKMapViewDelegate {
                 app.openURL(URL(string: toOpen)!)
             }
         }
+    }
+    
+    func showPostStudentFailure(message: String) {
+        let alertVC = UIAlertController(title: "Add Student Location Failed", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(alertVC, sender: nil)
     }
 
 }

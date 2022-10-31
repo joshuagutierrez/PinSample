@@ -206,6 +206,10 @@
                                     <action selector="findLocation:" destination="DcE-Zb-0LI" eventType="touchUpInside" id="AII-aw-NM2"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hLG-Fa-TY7">
+                                <rect key="frame" x="185" y="569" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -219,6 +223,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MC9-Ba-lrF"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="hLG-Fa-TY7" id="EEB-w7-05E"/>
                         <outlet property="location" destination="mxp-nr-RBh" id="5jg-Oq-qIj"/>
                         <outlet property="url" destination="Qvu-AY-Fbv" id="4dB-d7-JAq"/>
                         <segue destination="4H0-RA-X8R" kind="show" identifier="completeLocationSegue" id="n5g-4n-3LR"/>

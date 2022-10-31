@@ -32,6 +32,7 @@ class OTMClient {
         
         var stringValue: String {
             switch self {
+//            case .getStudentLocation: return Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100"
             case .getStudentLocation: return Endpoints.base + "/StudentLocation?order=-updatedAt&limit=100" //a code reviewer said the url should be Endpoints.base + "/StudentLocationINVALID?order=-updatedAt&limit=100", but I don't understand, that doesn't seem to work
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             case .putStudentLocation: return Endpoints.base + "/StudentLocation/\(Auth.objectId)"
@@ -52,7 +53,7 @@ class OTMClient {
         taskForPOSTRequest(url: Endpoints.login.url, responseType: AuthSessionResponse.self, body: body) { response, error in
             if let response = response {
                 Auth.sessionId = response.session.id
-                Auth.userId = response.account.key 
+                Auth.userId = response.account.key
                 //TODO: Are there other values that need to be set after login? e.g.user
                 //TODO: Should user be an int or String?
                 //TODO: sessionId will be passed back in the header of the DELETE in order to kill session

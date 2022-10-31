@@ -14,7 +14,8 @@ class PostViewController: UIViewController {
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var url: UITextField!
     
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     let geocoder = CLGeocoder()
     var address: CLPlacemark?
 
@@ -42,14 +43,16 @@ class PostViewController: UIViewController {
 
 
     @IBAction func findLocation(_ sender: Any) {
-        
+        setForwardGeocoding(true)
         geocoder.geocodeAddressString(location.text!) { placemarks, error in
             guard let placemarks = placemarks else {
-                  DispatchQueue.main.async {
-//                  showError(viewController: self, title: "Geocode Error", message: "Error finding location!")
+                DispatchQueue.main.async { [self] in
+                      showGeocodeFailure(message: "Error finding location!")
+                    self.setForwardGeocoding(false) 
                   }
                return
                }
+            self.setForwardGeocoding(false)  //TODO: is this the correct place to stop the activity indicator?
             let placemark = placemarks.first
             self.address = placemark
                DispatchQueue.main.async {
@@ -59,5 +62,23 @@ class PostViewController: UIViewController {
                   self.performSegue(withIdentifier: "completeLocationSegue", sender: self)
                }
         }
+
+    }
+    
+    func showGeocodeFailure(message: String) {
+        let alertVC = UIAlertController(title: "Geocode Error", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(alertVC, sender: nil)
+    }
+    
+    func setForwardGeocoding(_ forwardGeocoding: Bool) {
+        if forwardGeocoding {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+        location.isEnabled = !forwardGeocoding
+        url.isEnabled = !forwardGeocoding
+//        loginButton.isEnabled = !loggingIn
     }
 }

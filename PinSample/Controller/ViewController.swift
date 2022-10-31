@@ -32,13 +32,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
         setupNavigationBar()
         
         _ = OTMClient.getStudentLocation() { studentLocations, error in
-            StudentsData.sharedInstance().students = studentLocations
-//            self.tableView.reloadData()
-            //TODO: this fixed the issue when I wouldn't see pins in the first load
-            self.refresh()
+            if error == nil {
+                StudentsData.sharedInstance().students = studentLocations
+    //            self.tableView.reloadData()
+                //TODO: this fixed the issue when I wouldn't see pins in the first load
+                self.refresh()
+            } else {
+                self.showStudentLocationDownloadFailure(message: error?.localizedDescription ?? "")
+
+            }
         }
-        
-        
         
     }
     
@@ -135,13 +138,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-//    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        
-//        if control == annotationView.rightCalloutAccessoryView {
-//            let app = UIApplication.sharedApplication()
-//            app.openURL(NSURL(string: annotationView.annotation.subtitle))
-//        }
-//    }
+
+    func showStudentLocationDownloadFailure(message: String) {
+        let alertVC = UIAlertController(title: "Student Location Download Failed", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(alertVC, sender: nil)
+    }
 
     // MARK: - Sample Data
     

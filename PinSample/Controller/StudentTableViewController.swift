@@ -26,11 +26,28 @@ class StudentTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    @objc func didTapRefreshButton() {
+        //TODO: implement refresh button tap
+//        OTMClient.getStudentLocation(completion: handleRefreshStudentsLocation(location:error:))
+        
+        _ = OTMClient.getStudentLocation() { studentLocations, error in
+            if error == nil {
+                StudentsData.sharedInstance().students = studentLocations
+    //            self.tableView.reloadData()
+                //TODO: this fixed the issue when I wouldn't see pins in the first load
+                self.refresh()
+            } else {
+//                ViewController.showStudentLocationDownloadFailure(message: error?.localizedDescription ?? "")
+
+            }
+        }
+    }
+    
 //    // Setup navigation bar
     private func setupNavigationBar() {
         navigationItem.title = "On The Map"
         let addButton   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(TabBarController.didTapRefreshButton))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefreshButton))
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.plain, target: self, action: #selector(didTapLogoutButton))
 
         navigationItem.rightBarButtonItems = [addButton, refreshButton]
